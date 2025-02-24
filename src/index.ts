@@ -1,6 +1,7 @@
+import { loadEnv } from "./config/env";
+loadEnv();
 import express from "express";
 import cors from 'cors';
-
 // servidor de express
 const app = express();
 
