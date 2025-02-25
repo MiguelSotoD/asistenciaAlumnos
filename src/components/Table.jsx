@@ -1,272 +1,63 @@
+import { useState } from 'react';
+
 const TableStudents = () => {
-  return (
-    <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-                <th scope="col" className="p-4">
-                </th>
-                <th scope="col" className="px-6 py-3">
-                    Product name
-                </th>
-                <th scope="col" className="px-6 py-3">
-                    Color
-                </th>
-                <th scope="col" className="px-6 py-3">
-                    Category
-                </th>
-                <th scope="col" className="px-6 py-3">
-                    Accessories
-                </th>
-                <th scope="col" className="px-6 py-3">
-                    Available
-                </th>
-                <th scope="col" className="px-6 py-3">
-                    Price
-                </th>
-                <th scope="col" className="px-6 py-3">
-                    Weight
-                </th>
-                <th scope="col" className="px-6 py-3">
-                    Action
-                </th>
+    const diasDelMes = Array.from({ length: 31 }, (_, i) => i + 1);
+    const [alumnos, setAlumnos] = useState([
+      { id: 1, nombre: "AGUILAR JIMENEZ EVELYN GUADALUPE", asistencia: Array(31).fill(false) },
+      { id: 2, nombre: "ALVARADO DIEGO MARIA FERNANDA", asistencia: Array(31).fill(false) },
+      { id: 3, nombre: "CORTES GONZALEZ MARIA JOSE", asistencia: Array(31).fill(false) },
+      { id: 4, nombre: "CRISOSTOMO CEDILLO YOSHUA", asistencia: Array(31).fill(false) },
+      { id: 5, nombre: "ESCOBAR MORENO HUGO", asistencia: Array(31).fill(false) },
+      { id: 6, nombre: "GARCIA LOZADA DANA MAYTE", asistencia: Array(31).fill(false) },
+      { id: 7, nombre: "GUERRERO SANCHEZ AZUCENA", asistencia: Array(31).fill(false) },
+      { id: 8, nombre: "HERNANDEZ ZUÑIGA DANYA", asistencia: Array(31).fill(false) },
+      { id: 9, nombre: "JUAREZ MALDONADO ARIADNA SUGUHEY", asistencia: Array(31).fill(false) },
+      { id: 10, nombre: "JUAREZ MORENO ELIAS EMMANUEL", asistencia: Array(31).fill(false) },
+    ]);
+  
+    const toggleAsistencia = (id, dia) => {
+      setAlumnos(alumnos.map(alumno => 
+        alumno.id === id ? {
+          ...alumno,
+          asistencia: alumno.asistencia.map((asistio, index) =>
+            index === dia ? !asistio : asistio
+          )
+        } : alumno
+      ));
+    };
+  
+    return (
+      <div className="px-4 overflow-x-auto">
+        <h2 className="text-2xl font-bold mb-4">Lista de Asistencia</h2>
+        <table className="border-collapse border border-gray-400 w-full text-sm">
+          <thead>
+            <tr className="bg-gray-300">
+              <th className="border border-gray-400 p-2">No.</th>
+              <th className="border border-gray-400 p-2 text-left">NOMBRE DEL ALUMNO</th>
+              {diasDelMes.map((dia) => (
+                <th key={dia} className="border border-gray-400 p-2 text-center">{dia}</th>
+              ))}
             </tr>
-        </thead>
-        <tbody>
-            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <td className="w-4 p-4">
-                    <div className="flex items-center">
-                        <input id="checkbox-table-search-1" type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                        <label htmlFor="checkbox-table-search-1" className="sr-only">checkbox</label>
-                    </div>
-                </td>
-                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Apple MacBook Pro 17&quot;
-                </th>
-                <td className="px-6 py-4">
-                    Silver
-                </td>
-                <td className="px-6 py-4">
-                    Laptop
-                </td>
-                <td className="px-6 py-4">
-                    Yes
-                </td>
-                <td className="px-6 py-4">
-                    Yes
-                </td>
-                <td className="px-6 py-4">
-                    $2999
-                </td>
-                <td className="px-6 py-4">
-                    3.0 lb.
-                </td>
-                <td className="flex items-center px-6 py-4">
-                    <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                    <a href="#" className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3">Remove</a>
-                </td>
-            </tr>
-            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <td className="w-4 p-4">
-                    <div className="flex items-center">
-                        <input id="checkbox-table-search-2" type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                        <label htmlFor="checkbox-table-search-2" className="sr-only">checkbox</label>
-                    </div>
-                </td>
-                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Microsoft Surface Pro
-                </th>
-                <td className="px-6 py-4">
-                    White
-                </td>
-                <td className="px-6 py-4">
-                    Laptop PC
-                </td>
-                <td className="px-6 py-4">
-                    No
-                </td>
-                <td className="px-6 py-4">
-                    Yes
-                </td>
-                <td className="px-6 py-4">
-                    $1999
-                </td>
-                <td className="px-6 py-4">
-                    1.0 lb.
-                </td>
-                <td className="flex items-center px-6 py-4">
-                    <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                    <a href="#" className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3">Remove</a>
-                </td>
-            </tr>
-            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <td className="w-4 p-4">
-                    <div className="flex items-center">
-                        <input id="checkbox-table-search-3" type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                        <label htmlFor="checkbox-table-search-3" className="sr-only">checkbox</label>
-                    </div>
-                </td>
-                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Magic Mouse 2
-                </th>
-                <td className="px-6 py-4">
-                    Black
-                </td>
-                <td className="px-6 py-4">
-                    Accessories
-                </td>
-                <td className="px-6 py-4">
-                    Yes
-                </td>
-                <td className="px-6 py-4">
-                    No
-                </td>
-                <td className="px-6 py-4">
-                    $99
-                </td>
-                <td className="px-6 py-4">
-                    0.2 lb.
-                </td>
-                <td className="flex items-center px-6 py-4">
-                    <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                    <a href="#" className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3">Remove</a>
-                </td>
-            </tr>
-            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <td className="w-4 p-4">
-                    <div className="flex items-center">
-                        <input id="checkbox-table-search-3" type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                        <label htmlFor="checkbox-table-search-3" className="sr-only">checkbox</label>
-                    </div>
-                </td>
-                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Apple Watch
-                </th>
-                <td className="px-6 py-4">
-                    Black
-                </td>
-                <td className="px-6 py-4">
-                    Watches
-                </td>
-                <td className="px-6 py-4">
-                    Yes
-                </td>
-                <td className="px-6 py-4">
-                    No
-                </td>
-                <td className="px-6 py-4">
-                    $199
-                </td>
-                <td className="px-6 py-4">
-                    0.12 lb.
-                </td>
-                <td className="flex items-center px-6 py-4">
-                    <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                    <a href="#" className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3">Remove</a>
-                </td>
-            </tr>
-            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <td className="w-4 p-4">
-                    <div className="flex items-center">
-                        <input id="checkbox-table-search-3" type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                        <label htmlFor="checkbox-table-search-3" className="sr-only">checkbox</label>
-                    </div>
-                </td>
-                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Apple iMac
-                </th>
-                <td className="px-6 py-4">
-                    Silver
-                </td>
-                <td className="px-6 py-4">
-                    PC
-                </td>
-                <td className="px-6 py-4">
-                    Yes
-                </td>
-                <td className="px-6 py-4">
-                    Yes
-                </td>
-                <td className="px-6 py-4">
-                    $2999
-                </td>
-                <td className="px-6 py-4">
-                    7.0 lb.
-                </td>
-                <td className="flex items-center px-6 py-4">
-                    <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                    <a href="#" className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3">Remove</a>
-                </td>
-            </tr>
-            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <td className="w-4 p-4">
-                    <div className="flex items-center">
-                        <input id="checkbox-table-search-3" type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                        <label htmlFor="checkbox-table-search-3" className="sr-only">checkbox</label>
-                    </div>
-                </td>
-                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Apple AirPods
-                </th>
-                <td className="px-6 py-4">
-                    White
-                </td>
-                <td className="px-6 py-4">
-                    Accessories
-                </td>
-                <td className="px-6 py-4">
-                    No
-                </td>
-                <td className="px-6 py-4">
-                    Yes
-                </td>
-                <td className="px-6 py-4">
-                    $399
-                </td>
-                <td className="px-6 py-4">
-                    38 g
-                </td>
-                <td className="flex items-center px-6 py-4">
-                    <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                    <a href="#" className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3">Remove</a>
-                </td>
-            </tr>
-            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <td className="w-4 p-4">
-                    <div className="flex items-center">
-                        <input id="checkbox-table-search-3" type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                        <label htmlFor="checkbox-table-search-3" className="sr-only">checkbox</label>
-                    </div>
-                </td>
-                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    iPad Pro
-                </th>
-                <td className="px-6 py-4">
-                    Gold
-                </td>
-                <td className="px-6 py-4">
-                    Tablet
-                </td>
-                <td className="px-6 py-4">
-                    No
-                </td>
-                <td className="px-6 py-4">
-                    Yes
-                </td>
-                <td className="px-6 py-4">
-                    $699
-                </td>
-                <td className="px-6 py-4">
-                    1.3 lb.
-                </td>
-                <td className="flex items-center px-6 py-4">
-                    <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                    <a href="#" className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3">Remove</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+          </thead>
+          <tbody>
+            {alumnos.map((alumno, index) => (
+              <tr key={alumno.id} className="hover:bg-gray-100">
+                <td className="border border-gray-400 p-2 text-center">{index + 1}</td>
+                <td className="border border-gray-400 p-2">{alumno.nombre}</td>
+                {diasDelMes.map((dia, i) => (
+                  <td key={i} className="border border-gray-400 p-2 text-center">
+                    <input
+                      type="checkbox"
+                      checked={alumno.asistencia[i]}
+                      onChange={() => toggleAsistencia(alumno.id, i)}
+                    />
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
   )
 }
 

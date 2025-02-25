@@ -28,7 +28,7 @@ function MegaMenu() {
                     <a href="#" className="block py-2 px-3 text-gray-900 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-yellow md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700">Contact</a>
                 </li>
                 <li>
-                    <a href="#" className="text-white bg-gray-500 hover:bg-blue-400 font-medium rounded-lg text-sm px-4 py-2 md:px-5 md:py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Sign up</a>
+                    <a href="#" className="text-white bg-button-primary hover:bg-button-secondary font-medium rounded-lg text-sm px-3 py-1 md:px-3 md:py-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Sign up</a>
                 </li>
             </ul>
         </div>
