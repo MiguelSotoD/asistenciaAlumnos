@@ -9,7 +9,7 @@ const Login = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         // Aquí puedes agregar la lógica de autenticación
-        navigate('/students-home');
+        navigate('/Inicio-alumnos');
     };
 
     return (
