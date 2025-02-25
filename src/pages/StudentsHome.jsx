@@ -1,6 +1,7 @@
 import GroupCardGroup from '../components/GroupCardGroup'
 import MegaMenu from '../components/MegaMenu'
 import SearchInput from '../components/SearchInput'
+import SpeedDual from '../components/SpeedDual'
 
 function StudentsHome() {
   return (
@@ -8,6 +9,7 @@ function StudentsHome() {
     <MegaMenu />
     <SearchInput />
     <GroupCardGroup />
+    <SpeedDual />
     </>
     
   )
