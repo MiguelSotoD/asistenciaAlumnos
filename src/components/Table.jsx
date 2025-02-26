@@ -78,10 +78,10 @@ const TableStudents = () => {
                   <td key={i} className="border border-gray-400 p-2 text-center">
                     <input
                       type="text"
-                      id={`input-${alumno.id}-${dia}`}
+                      id={`input-${alumno.id}-${i}`}
                       value={alumno.asistencia[i]}
                       onChange={(e) => toggleAsistencia(alumno.id, i, e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(e, alumno.id, dia)}
+                      onKeyDown={(e) => handleKeyDown(e, alumno.id, i)}
                       className="w-5 h-5 rounded-sm text-center border border-gray-400"
                       maxLength="1"
                     />
