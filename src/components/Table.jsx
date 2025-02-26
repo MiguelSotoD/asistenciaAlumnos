@@ -27,15 +27,31 @@ const TableStudents = () => {
     };
 
     const handleKeyDown = (e, id, dia) => {
+      let nextId = id;
+      let nextDia = dia;
+
       if (e.key === 'Tab') {
         e.preventDefault();
-        const nextIndex = (id % alumnos.length);
-        const nextAlumno = alumnos[nextIndex];
-        if (nextAlumno) {
-          const nextInput = document.getElementById(`input-${nextAlumno.id}-${dia}`);
-          if (nextInput) {
-            nextInput.focus();
-          }
+        nextId = (id % alumnos.length) + 1;
+      } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        nextId = (id % alumnos.length) + 1;
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        nextId = (id - 2 + alumnos.length) % alumnos.length + 1;
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        nextDia = (dia + 1) % diasDelMes.length;
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        nextDia = (dia - 1 + diasDelMes.length) % diasDelMes.length;
+      }
+
+      const nextAlumno = alumnos.find(alumno => alumno.id === nextId);
+      if (nextAlumno) {
+        const nextInput = document.getElementById(`input-${nextAlumno.id}-${nextDia}`);
+        if (nextInput) {
+          nextInput.focus();
         }
       }
     };
