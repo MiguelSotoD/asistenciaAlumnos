@@ -3,29 +3,43 @@ import { useState } from 'react';
 const TableStudents = () => {
     const diasDelMes = Array.from({ length: 31 }, (_, i) => i + 1);
     const [alumnos, setAlumnos] = useState([
-      { id: 1, nombre: "AGUILAR JIMENEZ EVELYN GUADALUPE", asistencia: Array(31).fill(false) },
-      { id: 2, nombre: "ALVARADO DIEGO MARIA FERNANDA", asistencia: Array(31).fill(false) },
-      { id: 3, nombre: "CORTES GONZALEZ MARIA JOSE", asistencia: Array(31).fill(false) },
-      { id: 4, nombre: "CRISOSTOMO CEDILLO YOSHUA", asistencia: Array(31).fill(false) },
-      { id: 5, nombre: "ESCOBAR MORENO HUGO", asistencia: Array(31).fill(false) },
-      { id: 6, nombre: "GARCIA LOZADA DANA MAYTE", asistencia: Array(31).fill(false) },
-      { id: 7, nombre: "GUERRERO SANCHEZ AZUCENA", asistencia: Array(31).fill(false) },
-      { id: 8, nombre: "HERNANDEZ ZUÑIGA DANYA", asistencia: Array(31).fill(false) },
-      { id: 9, nombre: "JUAREZ MALDONADO ARIADNA SUGUHEY", asistencia: Array(31).fill(false) },
-      { id: 10, nombre: "JUAREZ MORENO ELIAS EMMANUEL", asistencia: Array(31).fill(false) },
+      { id: 1, nombre: "AGUILAR JIMENEZ EVELYN GUADALUPE", asistencia: Array(31).fill('') },
+      { id: 2, nombre: "ALVARADO DIEGO MARIA FERNANDA", asistencia: Array(31).fill('') },
+      { id: 3, nombre: "CORTES GONZALEZ MARIA JOSE", asistencia: Array(31).fill('') },
+      { id: 4, nombre: "CRISOSTOMO CEDILLO YOSHUA", asistencia: Array(31).fill('') },
+      { id: 5, nombre: "ESCOBAR MORENO HUGO", asistencia: Array(31).fill('') },
+      { id: 6, nombre: "GARCIA LOZADA DANA MAYTE", asistencia: Array(31).fill('') },
+      { id: 7, nombre: "GUERRERO SANCHEZ AZUCENA", asistencia: Array(31).fill('') },
+      { id: 8, nombre: "HERNANDEZ ZUÑIGA DANYA", asistencia: Array(31).fill('') },
+      { id: 9, nombre: "JUAREZ MALDONADO ARIADNA SUGUHEY", asistencia: Array(31).fill('') },
+      { id: 10, nombre: "JUAREZ MORENO ELIAS EMMANUEL", asistencia: Array(31).fill('') },
     ]);
-  
-    const toggleAsistencia = (id, dia) => {
+
+    const toggleAsistencia = (id, dia, value) => {
       setAlumnos(alumnos.map(alumno => 
         alumno.id === id ? {
           ...alumno,
           asistencia: alumno.asistencia.map((asistio, index) =>
-            index === dia ? !asistio : asistio
+            index === dia ? value : asistio
           )
         } : alumno
       ));
     };
-  
+
+    const handleKeyDown = (e, id, dia) => {
+      if (e.key === 'Tab') {
+        e.preventDefault();
+        const nextIndex = (id % alumnos.length);
+        const nextAlumno = alumnos[nextIndex];
+        if (nextAlumno) {
+          const nextInput = document.getElementById(`input-${nextAlumno.id}-${dia}`);
+          if (nextInput) {
+            nextInput.focus();
+          }
+        }
+      }
+    };
+
     return (
       <div className="px-4 overflow-x-auto">
         <h2 className="text-2xl font-bold mb-4">Lista de Asistencia</h2>
@@ -47,9 +61,13 @@ const TableStudents = () => {
                 {diasDelMes.map((dia, i) => (
                   <td key={i} className="border border-gray-400 p-2 text-center">
                     <input
-                      type="checkbox"
-                      checked={alumno.asistencia[i]}
-                      onChange={() => toggleAsistencia(alumno.id, i)}
+                      type="text"
+                      id={`input-${alumno.id}-${dia}`}
+                      value={alumno.asistencia[i]}
+                      onChange={(e) => toggleAsistencia(alumno.id, i, e.target.value)}
+                      onKeyDown={(e) => handleKeyDown(e, alumno.id, dia)}
+                      className="w-5 h-5 rounded-sm text-center border border-gray-400"
+                      maxLength="1"
                     />
                   </td>
                 ))}

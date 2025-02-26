@@ -20,13 +20,12 @@ const SearchInput = ({ onSearch }) => {
         <input
           type="search"
           id="default-search"
-          className="block w-full p-3.5 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-green dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          className="block w-full p-3.5 ps-10 text-sm text-gray-900 border border-gray-400 rounded-lg bg-gray-50 focus:ring-green dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           placeholder="Busque el grupo..."
           value={searchTerm}
           onChange={handleSearch}
           required
         />
-        <button type="submit" className="text-white absolute end-2.5 bottom-2.5 bg-gray-500 hover:bg-blue-400 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 cursor-pointer">Buscar</button>
       </div>
     </form>
   );
