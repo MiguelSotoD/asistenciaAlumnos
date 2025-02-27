@@ -6,6 +6,7 @@ import authRoutas from "./routes/session";
 import rutaGrupo from "./routes/groups";
 import { errorHandler } from "./middleware/celebrate";
 import { errors } from "celebrate";
+import { testConnection } from "./config/configBD";
 
 // servidor de express
 const app = express();
@@ -34,6 +35,7 @@ app.use(errorHandler);
 
 // Funcion para inicar el servidor en el puerto establecido
 const startServerExpress = async () => {
+  await testConnection();
   try {
     app.listen(process.env.PORT, () => {
       console.log("Servidor listo en el puerto: ",process.env.PORT);
