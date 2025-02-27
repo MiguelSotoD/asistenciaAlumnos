@@ -20,6 +20,8 @@ app.get("/", (req, res) => {
   res.send("Servidor funcionando");
 });
 
+// Rutas prinicpales de la aplicacion
+app.use("/api/auth",); //--Aqui pones el archivo de rutas
 // Funcion para inicar el servidor en el puerto establecido
 const startServerExpress = async () => {
   try {
