@@ -3,9 +3,9 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-    --color-button-primary: #157547;
-    --color-button-secondary: #E28C06;
-    --color-yellow: #E28C06;
-    --color-green: #B4BB6B;
-    --color-gray: #6A6A6A;
+    --color-button-primary: #5d2d4e;
+    --color-button-secondary: #5a4c6e;
+    --color-yellow: #05a1ad;
+    --color-green: #447390;
+    --color-gray: #4e031e;
   }

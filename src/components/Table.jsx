@@ -58,41 +58,46 @@ const TableStudents = () => {
 
     return (
       <div className="px-4 overflow-x-auto">
-        <h2 className="text-2xl font-bold mb-4">Lista de Asistencia</h2>
-        <table className="border-collapse border border-gray-400 w-full text-sm">
-          <thead>
-            <tr className="bg-gray-300">
-              <th className="border border-gray-400 p-2">No.</th>
-              <th className="border border-gray-400 p-2 text-left">NOMBRE DEL ALUMNO</th>
-              {diasDelMes.map((dia) => (
-                <th key={dia} className="border border-gray-400 p-2 text-center">{dia}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {alumnos.map((alumno, index) => (
-              <tr key={alumno.id} className="hover:bg-gray-100">
-                <td className="border border-gray-400 p-2 text-center">{index + 1}</td>
-                <td className="border border-gray-400 p-2">{alumno.nombre}</td>
-                {diasDelMes.map((dia, i) => (
-                  <td key={i} className="border border-gray-400 p-2 text-center">
-                    <input
-                      type="text"
-                      id={`input-${alumno.id}-${i}`}
-                      value={alumno.asistencia[i]}
-                      onChange={(e) => toggleAsistencia(alumno.id, i, e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(e, alumno.id, i)}
-                      className="w-5 h-5 rounded-sm text-center border border-gray-400"
-                      maxLength="1"
-                    />
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <h2 className="text-2xl font-bold mb-4">Lista de Asistencia</h2>
+      <table className="border-collapse border border-gray-400 w-full text-sm">
+        <thead>
+        <tr className="bg-gray-300">
+          <th className="border border-gray-400 p-2">No.</th>
+          <th className="border border-gray-400 p-2 text-left">NOMBRE DEL ALUMNO</th>
+          {diasDelMes.map((dia) => (
+          <th key={dia} className="border border-gray-400 p-2 text-center">{dia}</th>
+          ))}
+        </tr>
+        </thead>
+        <tbody>
+        {alumnos.map((alumno, index) => (
+          <tr key={alumno.id} className="hover:bg-gray-100">
+          <td className="border border-gray-400 p-2 text-center">{index + 1}</td>
+          <td className="border border-gray-400 p-2">{alumno.nombre}</td>
+          {diasDelMes.map((dia, i) => (
+            <td key={i} className="border border-gray-400 p-2 text-center">
+            <input
+              type="text"
+              id={`input-${alumno.id}-${i}`}
+              value={alumno.asistencia[i]}
+              onChange={(e) => toggleAsistencia(alumno.id, i, e.target.value)}
+              onKeyDown={(e) => handleKeyDown(e, alumno.id, i)}
+              className="w-5 h-5 rounded-sm text-center border border-gray-400"
+              maxLength="1"
+            />
+            </td>
+          ))}
+          </tr>
+        ))}
+        </tbody>
+      </table>
+      <div className="flex justify-end mt-4">
+        <button className="bg-white border-1 border-button-primary text-black px-4 py-2 rounded-full cursor-pointer hover:bg-button-secondary hover:text-white">
+        Guardar
+        </button>
       </div>
-  )
+      </div>
+    )
 }
 
 export default TableStudents;

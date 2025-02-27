@@ -22,7 +22,9 @@ export default function GroupCardGroup() {
 
   return (
     <>
+    <div className="ml-0 mr-auto sm:ml-34 mb-10">
       <SearchInput onSearch={handleSearch} />
+    </div>
       <h1 className="text-2xl sm:ml-34 ml-0 mb-6">Lista de grupos</h1>
       <div className="grid grid-cols-1 gap-4 mb-10">
         {filteredGroups.map(group => (
