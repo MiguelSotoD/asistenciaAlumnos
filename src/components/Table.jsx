@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const TableStudents = ({ mes }) => {
+const TableStudents = ({ mes, searchTerm }) => {
     const [diasDelMes, setDiasDelMes] = useState([]);
     const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 
@@ -63,6 +63,10 @@ const TableStudents = ({ mes }) => {
       }
     };
 
+    const filteredAlumnos = alumnos.filter(alumno =>
+        alumno.nombre.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     return (
       <div className="px-4 overflow-x-auto">
       <h1 className="text-3xl font-bold mb-4">{meses[mes]}</h1>
@@ -78,7 +82,7 @@ const TableStudents = ({ mes }) => {
         </tr>
         </thead>
         <tbody>
-        {alumnos.map((alumno, index) => (
+        {filteredAlumnos.map((alumno, index) => (
           <tr key={alumno.id} className="hover:bg-gray-100">
           <td className="border border-gray-400 p-2 text-center">{index + 1}</td>
           <td className="border border-gray-400 p-2">{alumno.nombre}</td>
@@ -100,7 +104,7 @@ const TableStudents = ({ mes }) => {
         </tbody>
       </table>
       <div className="flex justify-end mt-4">
-        <button className="bg-white border-1 border-button-primary text-black px-4 py-2 rounded-full cursor-pointer hover:bg-button-secondary hover:text-white">
+        <button className="bg-white border-1 border-button-primary text-black px-3.5 py-1.5 rounded-full cursor-pointer hover:bg-button-secondary hover:text-white">
         Guardar
         </button>
       </div>
