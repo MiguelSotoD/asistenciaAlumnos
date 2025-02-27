@@ -1,0 +1,9 @@
+# ENPOINT PARA CREAR Logros
+  POST http://localhost:4000/api/grupo/nuevo HTTP/1.1
+    Content-Type: application/json
+
+{
+    "nombre": "Grupo 1",
+    "carrera": "Energias Renovables",
+    "id_materia": 6
+}

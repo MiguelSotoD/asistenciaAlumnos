@@ -19,8 +19,8 @@ router.post(
     "/nuevo",
     celebrate({
       [Segments.BODY]: Joi.object({
-        nombre: Joi.string().min(3).max(50).required().messages(validationGroup.nombre),
-        carrera: Joi.string().min(3).max(50).required().messages(validationGroup.carrera),
+        nombre: Joi.string().min(3).max(250).required().messages(validationGroup.nombre),
+        carrera: Joi.string().min(3).max(250).messages(validationGroup.carrera),
         id_materia: Joi.number().required().messages(validationGroup.materia),
       }),
     }),

@@ -2,11 +2,11 @@
 export const validationGroup = {
     nombre: {
       'number.base': '"nombre" debe ser un número',
-      'number.empty': '"nombre" no puede estar vacío',
+      'number.max': '"nombre" no puede exceder los 250 caracteres',
     },
     carrera: {
-      'string.base': '"descripcion" debe ser un número',
-      'string.empty': '"descripcion" no puede estar vacío',
+      'string.base': '"carrera" debe ser una cadena de Texto',
+      'string.max': '"carrera" no puede exceder los 250 caracteres',
     },
     materia: {
       'number.base': '" ID Materia" debe ser un numero',
