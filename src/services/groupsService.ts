@@ -22,4 +22,19 @@ const crearGrupo = async (grupoData: Grupo): Promise<void> => {
     }
   };
 
-  export { crearGrupo };
+
+  const obtenerGrupos = async (): Promise<Grupo[]> => {
+    try {
+      // Obtener todos los grupos de la base de datos
+      const result = await conexionDB.query(
+        `SELECT * FROM grupos`
+      );
+      logger.info(`Grupos Obtenido: ${result.rows[0].nombre}`);
+      return result.rows;
+    } catch (error) {
+      logger.error(`Error al obtener los Grupos: ${error}`);
+      throw new Error("Error al obtener los Grupos.");
+  }
+  };
+
+  export { crearGrupo, obtenerGrupos };

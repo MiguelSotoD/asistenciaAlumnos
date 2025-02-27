@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
-import { crearGrupo } from "../services/groupsService";
+import { crearGrupo, obtenerGrupos } from "../services/groupsService";
+import logger from "../utils/logger";
 
 // Crear un Nuevo Grupo
 export const nuevoGrupo = async (req: Request, res: Response): Promise<void> => {
@@ -14,9 +15,22 @@ export const nuevoGrupo = async (req: Request, res: Response): Promise<void> => 
       });
     } catch (err) {
     // Mensaje de error al crear un nuevo grupo
-      console.error('Error al crear un nuevo Grupo: ', err.message); 
+      logger.error('Error al crear un nuevo Grupo: ', err.message); 
         res.status(500).json({
         error: "Error interno al procesar la solicitud. Intenta nuevamente más tarde.",
       });
     }
   };
+
+
+  export const todosGrupos = async (req: Request, res: Response): Promise<void> => {
+    try {
+      const grupos = await obtenerGrupos();
+      res.status(200).json(grupos);
+    } catch (err) {
+      logger.error('Error al obtener los Grupos: ', err.message);
+      res.status(500).json({
+        error: "Error interno al procesar la solicitud. Intenta nuevamente más tarde.",
+      });
+    }
+  }

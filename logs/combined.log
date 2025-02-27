@@ -1,2 +1,3 @@
 {"level":"error","message":"Error creando Grupo: error: el valor nulo en la columna «materia_id» de la relación «grupos» viola la restricción de no nulo","timestamp":"2025-02-27 14:08:48"}
 {"level":"info","message":"Grupo creado: undefined","timestamp":"2025-02-27 14:12:52"}
+{"level":"info","message":"Grupos Obtenido: undefined","timestamp":"2025-02-27 14:31:01"}

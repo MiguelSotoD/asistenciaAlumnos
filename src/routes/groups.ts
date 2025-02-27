@@ -2,7 +2,7 @@
 import { Router } from 'express';
 import { celebrate, Joi, Segments } from 'celebrate';
 import { validationGroup } from '../validations/groupsValidator';
-import { nuevoGrupo } from '../controller/groupsController';
+import { nuevoGrupo, todosGrupos } from '../controller/groupsController';
 
 const router = Router();
 // Definir rutas Para Grupo
@@ -26,6 +26,14 @@ router.post(
     }),
     nuevoGrupo
   );
+
+
+/**
+ * @route GET /api/grupo/
+ * @desc Obtener todos los grupos disponibles
+ * @access private
+ */
+router.get("/", todosGrupos);
 
 
 module.exports = router;
