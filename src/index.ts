@@ -7,7 +7,8 @@ import rutaGrupo from "./routes/groups";
 import { errorHandler } from "./middleware/celebrate";
 import { errors } from "celebrate";
 import { testConnection } from "./config/configBD";
-
+import swaggerDocs  from "./utils/swagger";
+import logger from "./utils/logger";
 // servidor de express
 const app = express();
 
@@ -32,17 +33,20 @@ app.use("/api/grupo", rutaGrupo); //Ruta para endpoins de grupos
 
 app.use(errors());
 app.use(errorHandler);
+swaggerDocs(app);
 
 // Funcion para inicar el servidor en el puerto establecido
 const startServerExpress = async () => {
   await testConnection();
   try {
-    app.listen(process.env.PORT, () => {
-      console.log("Servidor listo en el puerto: ",process.env.PORT);
+   app.listen(process.env.PORT, () => {
+      logger.info({message: `Servidor listo en el puerto: ${process.env.PORT}`})
+      logger.info({message: `Documentacion de Apis con Swagger en http://localhost:${process.env.PORT}/api-docs`});
     });
 
   } catch (error) {
-    console.error("Error al conectar el servidor", error);
+    logger.error("Error al conectar el servidor", error)
+   
     process.exit(1); //Terminar el proceso
   }
 };
