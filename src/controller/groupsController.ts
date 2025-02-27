@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { crearGrupo, obtenerGrupos } from "../services/groupsService";
+import { crearGrupo, obtenerGrupos, actualizarGrupo, verGrupoById } from "../services/groupsService";
 import logger from "../utils/logger";
 
 // Crear un Nuevo Grupo
@@ -23,6 +23,7 @@ export const nuevoGrupo = async (req: Request, res: Response): Promise<void> => 
   };
 
 
+  // Controller para obtener todos los grupos
   export const todosGrupos = async (req: Request, res: Response): Promise<void> => {
     try {
       const grupos = await obtenerGrupos();
@@ -34,3 +35,50 @@ export const nuevoGrupo = async (req: Request, res: Response): Promise<void> => 
       });
     }
   }
+
+  // Controller para editar un grupo
+  export const editarGrupo = async (req: Request, res: Response): Promise<void> => {
+    const { id } = req.params;
+    const groupData = req.body;
+  
+    // Convertir 'id' de string a number
+    const idNumber = parseInt(id, 10);
+
+    if (isNaN(idNumber)) {
+      res.status(400).json({ error: "El ID proporcionado no es válido" });
+      return;
+    }
+
+    try {
+      // Verificar si el grupo existe antes de intentar editarlo
+      const grupoExistente = await verGrupoById(idNumber);
+      if (!grupoExistente) {
+        res.status(404).json({ error: "Grupo no encontrado" });
+        return;
+      }
+  
+      // Llamar a la función de actualización
+      const grupoEditado = await actualizarGrupo(groupData, idNumber);
+  
+      if (!grupoEditado) {
+        res.status(400).json({ error: "No se pudo editar el grupo. Verifica los datos." });
+        return;
+      }
+  
+      // Respuesta exitosa
+      res.status(200).json({
+        message: "Grupo editado con éxito",
+        grupo: grupoEditado,
+      });
+    } catch (err: any) {
+      logger.error(`Error al editar el Grupo con ID ${idNumber}: ${err.message}`, {
+        stack: err.stack,
+        groupId: id,
+      });
+  
+      // Respuesta para error de servidor
+      res.status(500).json({
+        error: "Error interno al procesar la solicitud. Intenta nuevamente más tarde.",
+      });
+    }
+  };

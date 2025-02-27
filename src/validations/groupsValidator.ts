@@ -1,5 +1,9 @@
 // Guardar errores de validacion de celebrate en un json
 export const validationGroup = {
+    id: {
+   'number.base': '" ID" debe ser un numero',
+   'number.empty': '"ID" no puede estar vacío',
+    },
     nombre: {
       'number.base': '"nombre" debe ser un número',
       'number.max': '"nombre" no puede exceder los 250 caracteres',

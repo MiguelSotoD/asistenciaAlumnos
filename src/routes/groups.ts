@@ -2,7 +2,7 @@
 import { Router } from 'express';
 import { celebrate, Joi, Segments } from 'celebrate';
 import { validationGroup } from '../validations/groupsValidator';
-import { nuevoGrupo, todosGrupos } from '../controller/groupsController';
+import { nuevoGrupo, todosGrupos, editarGrupo } from '../controller/groupsController';
 
 const router = Router();
 
@@ -93,6 +93,69 @@ router.post(
   );
 
 
+/**
+ * @swagger
+ * /grupo/{id}:
+ *   put:
+ *     summary: Actualiza un grupo.
+ *     description: Permite actualizar el nombre, la carrera y la materia de un grupo.
+ *     tags:
+ *       - Grupos
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID del grupo a actualizar.
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               nombre:
+ *                 type: string
+ *                 description: Nombre del grupo.
+ *                 example: "Grupo A"
+ *               carrera:
+ *                 type: string
+ *                 description: Carrera asociada al grupo (opcional).
+ *                 example: "Ingeniería en Sistemas"
+ *               id_materia:
+ *                 type: integer
+ *                 description: ID de la materia del grupo.
+ *                 example: 101
+ *     responses:
+ *       200:
+ *         description: Grupo actualizado exitosamente.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Grupo actualizado exitosamente"
+ *       400:
+ *         description: Error en la validación de datos.
+ *       404:
+ *         description: Grupo no encontrado.
+ *       500:
+ *         description: Error interno del servidor.
+ */
+router.put(
+  "/:id",
+  celebrate({
+    [Segments.BODY]: Joi.object({
+      nombre: Joi.string().min(3).max(250).required().messages(validationGroup.nombre),
+      carrera: Joi.string().min(3).max(250).messages(validationGroup.carrera),
+      id_materia: Joi.number().integer().required().messages(validationGroup.materia),
+    }),
+  }),
+  editarGrupo
+);
 
 module.exports = router;
 
