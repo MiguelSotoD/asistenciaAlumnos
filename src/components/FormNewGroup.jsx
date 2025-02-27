@@ -1,12 +1,11 @@
 import { useState } from 'react';
-export default function FormNewGroup() {
+export default function FormNewGroup({ onSubmit }) {
     const [grupo, setGrupo] = useState('');
     const [carrera, setCarrera] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Manejar el envío del formulario
-        console.log('Grupo:', grupo, 'Carrera:', carrera);
+        onSubmit(grupo, carrera);
     };
     return(
         <div className="flex justify-center items-center">
