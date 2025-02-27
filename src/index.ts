@@ -1,7 +1,12 @@
 import { loadEnv } from "./config/env";
 loadEnv();
 import express from "express";
-import cors from 'cors';
+import cors from 'cors'
+import authRoutas from "./routes/session";
+import rutaGrupo from "./routes/groups";
+import { errorHandler } from "./middleware/celebrate";
+import { errors } from "celebrate";
+
 // servidor de express
 const app = express();
 
@@ -21,7 +26,12 @@ app.get("/", (req, res) => {
 });
 
 // Rutas prinicpales de la aplicacion
-app.use("/api/auth",); //--Aqui pones el archivo de rutas
+app.use("/api/auth", authRoutas);
+app.use("/api/grupo", rutaGrupo); //Ruta para endpoins de grupos
+
+app.use(errors());
+app.use(errorHandler);
+
 // Funcion para inicar el servidor en el puerto establecido
 const startServerExpress = async () => {
   try {
