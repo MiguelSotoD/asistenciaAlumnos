@@ -5,7 +5,7 @@ function MegaMenu() {
 <nav className="bg-white border-gray-200 dark:border-gray-600 dark:bg-gray-900 mb-7">
     <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
         <a onClick={()=> navigate('/Inicio-alumnos')} className="flex items-center space-x-3 rtl:space-x-reverse cursor-pointer">
-            <img src="https://i0.wp.com/utd.edu.mx/wp-content/uploads/2022/07/LOGO-UTD-NUEVO-2022_solo-01.png?fit=1024%2C387&ssl=1" className="h-10" alt="Flowbite Logo" />
+            <img src="https://e7.pngegg.com/pngimages/739/964/png-clipart-harvard-college-harvard-kennedy-school-harvard-t-h-chan-school-of-public-health-the-harvard-crimson-university-logo-university.png" className="h-16" alt="Flowbite Logo" />
         </a>
         <button data-collapse-toggle="mega-menu-full-cta" type="button" className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="mega-menu-full-cta" aria-expanded="false">
             <span className="sr-only">Open main menu</span>

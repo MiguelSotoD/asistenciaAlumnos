@@ -25,9 +25,9 @@ const Login = () => {
     return (
         <div className="flex justify-center items-center min-h-screen">
             <div className="bg-white p-8 rounded-lg shadow-lg shadow-gray w-4/5 max-w-md">
-                <div className="flex justify-items-start mb-12 gap-x-6">
-                    <img src="https://i0.wp.com/utd.edu.mx/wp-content/uploads/2022/07/LOGO-UTD-NUEVO-2022_solo-01.png?fit=1024%2C387&ssl=1" alt="Company Logo" className="h-8 w-20" />
+                <div className="flex justify-center mb-6 gap-x-6">
                     <h2 className="text-3xl font-bold">Iniciar Sesión</h2>
+                    <img src="https://e7.pngegg.com/pngimages/739/964/png-clipart-harvard-college-harvard-kennedy-school-harvard-t-h-chan-school-of-public-health-the-harvard-crimson-university-logo-university.png" alt="Company Logo" className="h-13" />
                 </div>
                 
                 <form onSubmit={handleSubmit}>
