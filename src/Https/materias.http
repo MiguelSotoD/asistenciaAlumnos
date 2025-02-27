@@ -1,9 +1,24 @@
-# ENPOINT PARA CREAR Materia
-  POST http://localhost:4000/api/materia/nueva HTTP/1.1
-    Content-Type: application/json
+# # ENPOINT PARA CREAR Materia
+#   POST http://localhost:4000/api/materia/nueva HTTP/1.1
+#     Content-Type: application/json
 
-{
-    "nombre": "Ciencias Sociales",
-    "horas": 40,
-    "id_profesor": 4
-}
+# {
+#     "nombre": "Ciencias Sociales",
+#     "horas": 40,
+#     "id_profesor": 4
+# }
+
+
+# #  ENPOINT PARA OBTENER TODAS LAS MATERIAS
+#   GET  http://localhost:4000/api/materia/ HTTP/1.1
+
+
+# # ENPOINT PARA CREAR Materia
+#   POST http://localhost:4000/api/materia/nueva HTTP/1.1
+#     Content-Type: application/json
+
+# {
+#     "nombre": "Ciencias Sociales",
+#     "horas": 40,
+#     "id_profesor": 4
+# }
