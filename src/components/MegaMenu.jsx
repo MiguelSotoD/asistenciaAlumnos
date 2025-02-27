@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom"
 function MegaMenu() {
     const navigate = useNavigate();
   return (
-<nav className="bg-white border-gray-200 dark:border-gray-600 dark:bg-gray-900 mb-10">
+<nav className="bg-white border-gray-200 dark:border-gray-600 dark:bg-gray-900 mb-7">
     <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
         <a onClick={()=> navigate('/Inicio-alumnos')} className="flex items-center space-x-3 rtl:space-x-reverse cursor-pointer">
             <img src="https://i0.wp.com/utd.edu.mx/wp-content/uploads/2022/07/LOGO-UTD-NUEVO-2022_solo-01.png?fit=1024%2C387&ssl=1" className="h-10" alt="Flowbite Logo" />

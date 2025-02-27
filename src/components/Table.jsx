@@ -1,7 +1,14 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-const TableStudents = () => {
-    const diasDelMes = Array.from({ length: 31 }, (_, i) => i + 1);
+const TableStudents = ({ mes }) => {
+    const [diasDelMes, setDiasDelMes] = useState([]);
+    const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+
+    useEffect(() => {
+        const diasEnMes = new Date(2023, mes + 1, 0).getDate();
+        setDiasDelMes(Array.from({ length: diasEnMes }, (_, i) => i + 1));
+    }, [mes]);
+
     const [alumnos, setAlumnos] = useState([
       { id: 1, nombre: "AGUILAR JIMENEZ EVELYN GUADALUPE", asistencia: Array(31).fill('') },
       { id: 2, nombre: "ALVARADO DIEGO MARIA FERNANDA", asistencia: Array(31).fill('') },
@@ -58,6 +65,7 @@ const TableStudents = () => {
 
     return (
       <div className="px-4 overflow-x-auto">
+      <h1 className="text-3xl font-bold mb-4">{meses[mes]}</h1>
       <h2 className="text-2xl font-bold mb-4">Lista de Asistencia</h2>
       <table className="border-collapse border border-gray-400 w-full text-sm">
         <thead>
