@@ -5,7 +5,7 @@ export const validationGroup = {
    'number.empty': '"ID" no puede estar vacío',
     },
     nombre: {
-      'number.base': '"nombre" debe ser un número',
+      'number.base': '"nombre" debe ser una cadena de texto',
       'number.max': '"nombre" no puede exceder los 250 caracteres',
     },
     carrera: {

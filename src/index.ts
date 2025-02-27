@@ -4,6 +4,7 @@ import express from "express";
 import cors from 'cors'
 import authRoutas from "./routes/session";
 import rutaGrupo from "./routes/groups";
+import rutaMateria from "./routes/materias";
 import { errorHandler } from "./middleware/celebrate";
 import { errors } from "celebrate";
 import { testConnection } from "./config/configBD";
@@ -30,6 +31,7 @@ app.get("/", (req, res) => {
 // Rutas prinicpales de la aplicacion
 app.use("/api/auth", authRoutas);
 app.use("/api/grupo", rutaGrupo); //Ruta para endpoins de grupos
+app.use("/api/materia", rutaMateria); //Ruta para endpoins de Materias
 
 app.use(errors());
 app.use(errorHandler);
