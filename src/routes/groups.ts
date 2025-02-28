@@ -2,7 +2,7 @@
 import { Router } from 'express';
 import { celebrate, Joi, Segments } from 'celebrate';
 import { validationGroup } from '../validations/groupsValidator';
-import { nuevoGrupo, todosGrupos, editarGrupo } from '../controller/groupsController';
+import { nuevoGrupo, todosGrupos, editarGrupo, todasAsistenciasAlumno } from '../controller/groupsController';
 
 const router = Router();
 
@@ -49,6 +49,21 @@ const router = Router();
  *         description: Lista de grupos obtenida correctamente
  */
 router.get("/", todosGrupos);
+
+/**
+ * @swagger
+ * /grupo/{id}:
+ *   get:
+ *     summary: Obtener todos los alumnos y las asistencias a las sesiones que esten registrados en ese grupo
+ *     description: Devuelve una lista de todos lo alumnos  y las asistencias a las sesiones que estan asignados a ese grupo.
+ *     tags:
+ *       - Grupos
+ *       - Alumnos
+ *     responses:
+ *       200:
+ *         description: Lista de alumnos y asistencias a las sesiones registrados en un grupo
+ */
+router.get("/:id", todasAsistenciasAlumno);
 
 /**
  * @swagger
