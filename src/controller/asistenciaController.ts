@@ -4,14 +4,14 @@ import logger from "../utils/logger";
 
 export const asignarAsistencias = async (req: Request, res: Response) => {
   try {
-    const { grupo_id, asistencias } = req.body;
+    const {asistencias } = req.body;
 
     if (!asistencias || !Array.isArray(asistencias) || asistencias.length === 0) {
       res.status(400).json({ error: "Debe proporcionar al menos una asistencia válida." });
       return;
     }
 
-    await asignarAsistenciaService(grupo_id, asistencias);
+    await asignarAsistenciaService(asistencias);
 
     res.status(200).json({ message: "Asistencias registradas correctamente." });
   } catch (error) {

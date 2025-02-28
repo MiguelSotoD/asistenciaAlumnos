@@ -56,6 +56,11 @@ router.get("/", todosGrupos);
  *   get:
  *     summary: Obtener todos los alumnos y las asistencias a las sesiones que esten registrados en ese grupo
  *     description: Devuelve una lista de todos lo alumnos  y las asistencias a las sesiones que estan asignados a ese grupo.
+ *     parameters:
+*       - in: path
+*         name: id
+*         required: true
+*         description: ID del Grupo .
  *     tags:
  *       - Grupos
  *       - Alumnos

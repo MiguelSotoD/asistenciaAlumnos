@@ -107,7 +107,7 @@ export const nuevoGrupo = async (req: Request, res: Response): Promise<void> => 
         if (!alumnosMap.has(row.id_alumno)) {
           alumnosMap.set(row.id_alumno, {
             id_alumno: row.id_alumno,
-            nombre: row.alumno_nombre,
+            nombre: `${row.nombre} ${row.apellido_paterno} ${row.apellido_materno || ""}`.trim(),
             sesiones: []
           });
         }

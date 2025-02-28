@@ -3,7 +3,7 @@ import { Asistencia } from "../models/interface/asistenciaInterface";
 import logger from "../utils/logger";
 
 // Función para asignar asistencia a múltiples alumnos en una sola transacción
-export const asignarAsistenciaService = async (grupo_id: number, asistencias: Asistencia[]) => {
+export const asignarAsistenciaService = async (asistencias: Asistencia[]) => {
   const client = await conexionDB.connect();
   
   try {
@@ -20,9 +20,9 @@ export const asignarAsistenciaService = async (grupo_id: number, asistencias: As
         await client.query(queryUpdate, [asistencia, alumno_id, sesion_id]);
       } else {
         // Si no existe, insertar nuevo registro
-        const queryInsert = `INSERT INTO asistencia (grupo_id, alumno_id, sesion_id, asistencia) VALUES ($1, $2, $3, $4)`;
-        await client.query(queryInsert, [grupo_id, alumno_id, sesion_id, asistencia]);
-      }
+        const queryInsert = `INSERT INTO asistencia (sesion_id, alumno_id, asistencia) VALUES ($1, $2, $3 )`;
+        await client.query(queryInsert, [sesion_id, alumno_id,asistencia]);
+      } 
     }
 
     await client.query("COMMIT"); // Confirmar los cambios en la base de datos

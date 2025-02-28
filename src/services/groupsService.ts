@@ -75,17 +75,21 @@ const crearGrupo = async (grupoData: Grupo): Promise<void> => {
   try {
   const result = await conexionDB.query( `
    SELECT 
-        a.id_alumno, 
-        CONCAT(a.nombre, ' ', a.apellido_paterno, ' ', a.apellido_materno) AS alumno_nombre,
-        s.id_sesion, 
-        s.fecha AS fecha_sesion,
-        COALESCE(asi.asistencia, false) AS asistio
-      FROM grupo_alumnos ga
-      INNER JOIN alumnos a ON ga.alumno_id = a.id_alumno
-      INNER JOIN sesiones s ON s.grupo_id = ga.grupo_id
-      LEFT JOIN asistencia asi ON asi.alumno_id = a.id_alumno AND asi.sesion_id = s.id_sesion
-      WHERE ga.grupo_id = $1
-      ORDER BY a.nombre, s.fecha; `, [idNumber] );
+    a.id_alumno, 
+    a.nombre, 
+    a.apellido_paterno, 
+    a.apellido_materno, 
+    s.id_sesion, 
+    s.fecha AS fecha_sesion, 
+    COALESCE(asist.asistencia, false) AS asistio
+  FROM alumnos a
+  JOIN grupo_alumnos ga ON a.id_alumno = ga.alumno_id
+  JOIN grupos g ON ga.grupo_id = g.id_grupo
+  JOIN sesiones s ON g.id_grupo = s.grupo_id
+  LEFT JOIN asistencia asist ON a.id_alumno = asist.alumno_id AND s.id_sesion = asist.sesion_id
+  WHERE g.id_grupo = $1
+  ORDER BY a.id_alumno, s.fecha;
+ `, [idNumber] );
     logger.info(`Asistencia de alumnos en este grupo: ${result.rows[0].nombre}`);
     return result.rows;
   } catch (error) {

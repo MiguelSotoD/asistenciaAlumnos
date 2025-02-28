@@ -3,9 +3,9 @@
 #     Content-Type: application/json
 
 # {
-#     "nombre": "Ciencias Sociales",
+#     "nombre": "Matematicas",
 #     "horas": 40,
-#     "id_profesor": 4
+#     "id_profesor": 2
 # }
 
 

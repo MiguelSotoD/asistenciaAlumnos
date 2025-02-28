@@ -3,6 +3,6 @@
     Content-Type: application/json
 
 {
-    "grupo_id": 5,
+    "grupo_id": 2,
     "fecha": "2025-01-01"
 }

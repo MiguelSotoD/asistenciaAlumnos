@@ -6,7 +6,7 @@ const router = Router();
 
 /**
  *@swagger
- * /api/nueva:
+ * /asistencia/nueva:
  *   post:
  *     summary: Registra la asistencia de múltiples alumnos en una sesión
  *     tags: [Asistencias]
@@ -59,7 +59,6 @@ router.post(
   "/nueva",
   celebrate({
     [Segments.BODY]: Joi.object({
-      grupo_id: Joi.number().required(),
       asistencias: Joi.array()
         .items(
           Joi.object({

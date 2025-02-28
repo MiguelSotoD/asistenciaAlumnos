@@ -3,9 +3,9 @@
 #     Content-Type: application/json
 
 # {
-#     "nombre": "Grupo 1",
-#     "carrera": "Energias Renovables",
-#     "id_materia": 6
+#     "nombre": "Grupo 8B",
+#     "carrera": "Lengua Inglesa",
+#     "id_materia": 1
 # }
 
 # ENPOINT PARA OBTENER TODOS LOS GRUPOS
