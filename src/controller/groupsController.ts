@@ -85,26 +85,45 @@ export const nuevoGrupo = async (req: Request, res: Response): Promise<void> => 
 
 
 
-export const todasAsistenciasAlumno = async (req, res) => {
-  try {
-    const { id } = req.params;
-     // Convertir 'id' de string a number
-     const idNumber = parseInt(id, 10);
-
-     if (isNaN(idNumber)) {
-       res.status(400).json({ error: "El ID proporcionado no es válido" });
-       return;
-     }
-
-    const alumnosConAsistencias = await obtenerAlumnosConAsistencias(idNumber);
-
-    if (!alumnosConAsistencias.length) {
-      return res.status(404).json({ message: "No se encontraron alumnos en este grupo." });
+  export const todasAsistenciasAlumno = async (req, res) => {
+    try {
+      const { id } = req.params;
+      const idNumber = parseInt(id, 10);
+  
+      if (isNaN(idNumber)) {
+        return res.status(400).json({ error: "El ID proporcionado no es válido" });
+      }
+  
+      const rows = await obtenerAlumnosConAsistencias(idNumber);
+  
+      if (!rows.length) {
+        return res.status(404).json({ message: "No se encontraron alumnos en este grupo." });
+      }
+  
+      // Agrupar datos por alumno
+      const alumnosMap = new Map();
+  
+      rows.forEach(row => {
+        if (!alumnosMap.has(row.id_alumno)) {
+          alumnosMap.set(row.id_alumno, {
+            id_alumno: row.id_alumno,
+            nombre: row.alumno_nombre,
+            sesiones: []
+          });
+        }
+  
+        alumnosMap.get(row.id_alumno).sesiones.push({
+          id_sesion: row.id_sesion,
+          fecha: row.fecha_sesion,
+          asistio: row.asistio
+        });
+      });
+  
+      const alumnosConAsistencias = Array.from(alumnosMap.values());
+  
+      res.status(200).json(alumnosConAsistencias);
+    } catch (error) {
+      logger.error("Error obteniendo alumnos y asistencias:", error);
+      res.status(500).json({ message: "Error interno del servidor." });
     }
-
-    res.status(200).json(alumnosConAsistencias);
-  } catch (error) {
-    logger.error("Error obteniendo alumnos y asistencias:", error);
-    res.status(500).json({ message: "Error interno del servidor." });
-  }
-};
+  };
