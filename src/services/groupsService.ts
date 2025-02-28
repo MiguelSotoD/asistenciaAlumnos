@@ -98,4 +98,24 @@ const crearGrupo = async (grupoData: Grupo): Promise<void> => {
   }
 }
 
-  export { crearGrupo, obtenerGrupos, actualizarGrupo, verGrupoById, obtenerAlumnosConAsistencias };
+
+const asignarAlumno = async (alumnoData: { grupo_id: number; alumno_id: number }) => {
+  const {grupo_id, alumno_id} = alumnoData;
+  try {
+  // Registrar alumno a un grupo
+  const result = await conexionDB.query(
+    `INSERT INTO grupo_alumnos (
+      grupo_id, alumno_id
+    ) VALUES (
+      $1,$2
+    ) RETURNING *`,
+    [grupo_id, alumno_id]
+  );
+  logger.info(`Alumno asignado al grupo Correctamente: ${result.rows[0].nombre}`);
+  return result.rows[0]; 
+    } catch (error) {
+      logger.error(`Error Registrando Alumno al Grupo: ${error}`);
+      throw new Error("Error al crear el Registrar Alumno en Grupo.");
+    }
+  };
+  export { crearGrupo, obtenerGrupos, actualizarGrupo, verGrupoById, obtenerAlumnosConAsistencias, asignarAlumno };

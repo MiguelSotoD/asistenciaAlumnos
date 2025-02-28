@@ -2,7 +2,7 @@
 import { Router } from 'express';
 import { celebrate, Joi, Segments } from 'celebrate';
 import { validationGroup } from '../validations/groupsValidator';
-import { nuevoGrupo, todosGrupos, editarGrupo, todasAsistenciasAlumno } from '../controller/groupsController';
+import { nuevoGrupo, todosGrupos, editarGrupo, todasAsistenciasAlumno, nuevoAlumnoEnGrupo } from '../controller/groupsController';
 
 const router = Router();
 
@@ -176,6 +176,50 @@ router.put(
   }),
   editarGrupo
 );
+
+
+/**
+ * @swagger
+ * /grupo/agregar-alumno:
+ *   post:
+ *     summary: Asignar alumno a un grupo
+ *     description: Registrar un Alumno a un Grupo existente
+ *     tags:
+ *       - Grupos
+ *       - Alumnos
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Grupo'
+ *     responses:
+ *       201:
+ *         description: Alumno Asignado Correctamten
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Alumno Asignado con éxito"
+ *       400:
+ *         description: Error en los datos de entrada
+ *       500:
+ *         description: Error interno del servidor
+ */
+router.post(
+  "/agregar-alumno",
+  celebrate({
+    [Segments.BODY]: Joi.object({
+      grupo_id: Joi.number().integer().required().messages(validationGroup.id),
+      alumno_id: Joi.number().integer().required().messages(validationGroup.id),
+    }),
+  }),
+  nuevoAlumnoEnGrupo
+);
+
 
 module.exports = router;
 

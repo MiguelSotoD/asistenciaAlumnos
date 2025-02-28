@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { crearGrupo, obtenerGrupos, actualizarGrupo, verGrupoById, obtenerAlumnosConAsistencias } from "../services/groupsService";
+import { crearGrupo, obtenerGrupos, actualizarGrupo, verGrupoById, obtenerAlumnosConAsistencias, asignarAlumno } from "../services/groupsService";
 import logger from "../utils/logger";
 
 // Crear un Nuevo Grupo
@@ -127,3 +127,29 @@ export const nuevoGrupo = async (req: Request, res: Response): Promise<void> => 
       res.status(500).json({ message: "Error interno del servidor." });
     }
   };
+
+
+  export const nuevoAlumnoEnGrupo = async (req, res)=>{
+    const alumnoData = req.body
+
+    try {
+      // Verificar si el grupo existe antes de intentar editarlo
+      const grupoExistente = await verGrupoById(alumnoData.grupo_id);
+      if (!grupoExistente) {
+        res.status(404).json({ error: "Grupo no encontrado" });
+        return;
+      } 
+
+      const AlumnoAsignado = await asignarAlumno(alumnoData);
+  
+    //Enviar respuesta exitosa (201) con los datos del grupo creado
+       res.status(201).json({
+        message: "Grupo Creado exitosamente",
+        grupo: AlumnoAsignado
+      });
+
+    }catch(error){
+      logger.error(error)
+      }
+
+  }
