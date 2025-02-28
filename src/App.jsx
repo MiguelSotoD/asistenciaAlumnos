@@ -13,7 +13,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/Inicio-alumnos" element={<StudentsHome />} />
-        <Route path="/Lista-alumnos" element={<ListaAlumnos />} />
+        <Route path="/Lista-alumnos/:id_grupo" element={<ListaAlumnos />} />
         <Route path='/Recuperar-contraseña' element={<RecuperarContraseña />} />
         <Route path="/Agregar-Nuevo-Grupo" element={<AddNewGroup />} />
         <Route path="/register-students" element={<RegisterStudents />} />
