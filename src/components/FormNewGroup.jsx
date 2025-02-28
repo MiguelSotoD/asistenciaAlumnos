@@ -2,10 +2,19 @@ import { useState } from 'react';
 export default function FormNewGroup({ onSubmit }) {
     const [grupo, setGrupo] = useState('');
     const [carrera, setCarrera] = useState('');
+    const [idMateria, setIdMateria] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        onSubmit(grupo, carrera);
+        if (grupo.length < 3) {
+            alert('El nombre del grupo debe tener al menos 3 caracteres.');
+            return;
+        }
+        if (!idMateria) {
+            alert('El ID de la materia es obligatorio.');
+            return;
+        }
+        onSubmit(grupo, carrera, idMateria);
     };
     return(
         <div className="flex justify-center items-center">
@@ -13,7 +22,7 @@ export default function FormNewGroup({ onSubmit }) {
                 <h2 className="text-3xl font-bold mb-8 text-center">Agregar Nuevo grupo</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-6">
-                        <label htmlFor="grupo" className="block text-sm font-semibold mb-2">Número de Grupo</label>
+                        <label htmlFor="grupo" className="block text-sm font-semibold mb-2">Nombre del Grupo</label>
                         <input 
                             type="text" 
                             id="grupo" 
@@ -29,6 +38,16 @@ export default function FormNewGroup({ onSubmit }) {
                             id="carrera" 
                             value={carrera} 
                             onChange={(e) => setCarrera(e.target.value)} 
+                            className="p-2 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-1 focus:ring-green" 
+                        />
+                    </div>
+                    <div className="mb-6">
+                        <label htmlFor="idMateria" className="block text-sm font-semibold mb-2">ID Materia</label>
+                        <input 
+                            type="text" 
+                            id="idMateria" 
+                            value={idMateria} 
+                            onChange={(e) => setIdMateria(e.target.value)} 
                             className="p-2 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-1 focus:ring-green" 
                         />
                     </div>
