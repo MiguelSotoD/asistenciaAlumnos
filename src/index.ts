@@ -6,6 +6,7 @@ import authRoutas from "./routes/session";
 import rutaGrupo from "./routes/groups";
 import rutaMateria from "./routes/materias";
 import rutaAlumno from "./routes/alumnos"
+import rutaClase from "./routes/clases"
 import { errorHandler } from "./middleware/celebrate";
 import { errors } from "celebrate";
 import { testConnection } from "./config/configBD";
@@ -34,6 +35,7 @@ app.use("/api/auth", authRoutas);
 app.use("/api/grupo", rutaGrupo); //Ruta para endpoins de grupos
 app.use("/api/materia", rutaMateria); //Ruta para endpoins de Materias
 app.use("/api/alumno", rutaAlumno) //Ruta para endoints de Alumnos
+app.use("/api/sesion", rutaClase) //Ruta para endoints de Alumnos
 
 app.use(errors());
 app.use(errorHandler);

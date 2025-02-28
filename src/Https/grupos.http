@@ -21,5 +21,6 @@
 #     "id_materia": 6
 # }
 
-# Enpoint para obtenr todos los alumnos registrados en el grupo 5
-  GET http://localhost:4000/api/grupo/5 HTTP/1.1
+# # Enpoint para obtenr todos los alumnos registrados en el grupo 5
+#   GET http://localhost:4000/api/grupo/5 HTTP/1.1
+
