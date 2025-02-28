@@ -36,7 +36,7 @@ cp .env.example .env
 Edita el archivo `.env` con los siguientes valores:
 
 ```
-PORT= #Puerto donde se correra la aplicacion
+PORT=5000 #Puerto donde se correra la aplicacion
 USERPG= #usuario de la base de datos de postgres
 PASSWORDPG= #contraseña de la base de datos de postgres
 HOSTPG= #host de la base de datos de postgres
@@ -76,7 +76,7 @@ npm run dev
 Se puede acceder a la documentación detallada de la API a través de Swagger:
 
 ```
-http://localhost:{process.env.PORT}/api-docs
+http://localhost:5000/api-docs
 ```
 
 
