@@ -15,12 +15,13 @@ const Login = () => {
             try {
                 const response = await login({ email, password });
                 if (response.success) {
+                    localStorage.setItem('token', response.token); // Guarda el token en el almacenamiento local
                     navigate('/Inicio-alumnos');
                 } else {
-                    alert(response.message);
+                    alert('Contraseña o correo electrónico incorrectos.');
                 }
             } catch (error) {
-                alert('Error al iniciar sesión. Por favor, inténtalo de nuevo.');
+                alert('Error. Contraseña o correo electrónico incorrectos.');
             }
         } else {
             alert('Por favor, verifica que eres un humano.');
