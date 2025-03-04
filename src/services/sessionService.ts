@@ -6,7 +6,6 @@ const crearProfesor = async (profesorData: Profesor): Promise<void> => {
   const { nombre, apellido_paterno, apellido_materno, email, password } =
     profesorData;
   try {
-    // Insertar nuevo Grupo en la base de datos
     const result = await conexionDB.query(
       `INSERT INTO profesores (
         nombre, apellido_paterno, apellido_materno, email, password
@@ -28,23 +27,22 @@ const loginProfesor = async (
   password: string
 ): Promise<Profesor | null> => {
   try {
-    // Buscar al profesor por email
     const result = await conexionDB.query(
       `SELECT * FROM profesores WHERE Email = $1`,
       [email]
     );
 
     if (result.rows.length === 0) {
-      return null; // No se encontró el profesor
+      return null;
     }
 
     const profesor = result.rows[0];
 
     if (password !== profesor.password) {
-      return null; // Contraseña incorrecta
+      return null;
     }
 
-    return profesor; // Devuelve el objeto profesor si todo es correcto
+    return profesor;
   } catch (error) {
     logger.error(`Error en el login: ${error.message}`);
     throw new Error("Error al iniciar sesión.");

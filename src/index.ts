@@ -13,6 +13,8 @@ import { errors } from "celebrate";
 import { testConnection } from "./config/configBD";
 import swaggerDocs  from "./utils/swagger";
 import logger from "./utils/logger";
+import cookieParser from "cookie-parser";
+
 // servidor de express
 const app = express();
 
@@ -26,6 +28,7 @@ app.use(
 
 // Middleware del servidor
 app.use(express.json());
+app.use(cookieParser());
 
 app.get("/", (req, res) => {
   res.send("Servidor funcionando");
