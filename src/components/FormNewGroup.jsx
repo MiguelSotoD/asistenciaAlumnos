@@ -1,4 +1,5 @@
 import { useState } from 'react';
+
 export default function FormNewGroup({ onSubmit }) {
     const [grupo, setGrupo] = useState('');
     const [carrera, setCarrera] = useState('');
@@ -16,7 +17,8 @@ export default function FormNewGroup({ onSubmit }) {
         }
         onSubmit(grupo, carrera, idMateria);
     };
-    return(
+
+    return (
         <div className="flex justify-center items-center">
             <div className="bg-white p-8 rounded-lg shadow-lg shadow-gray w-4/5 max-w-md">
                 <h2 className="text-3xl font-bold mb-8 text-center">Agregar Nuevo grupo</h2>
@@ -42,10 +44,10 @@ export default function FormNewGroup({ onSubmit }) {
                         />
                     </div>
                     <div className="mb-6">
-                        <label htmlFor="idMateria" className="block text-sm font-semibold mb-2">ID Materia</label>
+                        <label htmlFor="materia" className="block text-sm font-semibold mb-2">Materia</label>
                         <input 
                             type="text" 
-                            id="idMateria" 
+                            id="materia" 
                             value={idMateria} 
                             onChange={(e) => setIdMateria(e.target.value)} 
                             className="p-2 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-1 focus:ring-green" 
@@ -57,5 +59,5 @@ export default function FormNewGroup({ onSubmit }) {
                 </form>
             </div>
         </div>
-    )
+    );
 }
