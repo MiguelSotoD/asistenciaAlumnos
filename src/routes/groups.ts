@@ -192,7 +192,16 @@ router.put(
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Grupo'
+ *             type: object
+ *             properties:
+ *               grupo_id:
+ *                 type: integer
+ *                 description: ID del Grupo al que se asignara Alumno
+ *                 example: 1
+ *               alumno_id:
+ *                 type: integer
+ *                 description: ID del Alumno que se Asignara al Grupo
+ *                 example: 1
  *     responses:
  *       201:
  *         description: Alumno Asignado Correctamten

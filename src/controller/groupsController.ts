@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { crearGrupo, obtenerGrupos, actualizarGrupo, verGrupoById, obtenerAlumnosConAsistencias, asignarAlumno } from "../services/groupsService";
+import { crearGrupo, obtenerGrupos, actualizarGrupo, verGrupoById, obtenerAlumnosConAsistencias, asignarAlumno, verificarAlumnoEnGrupo } from "../services/groupsService";
 import logger from "../utils/logger";
 
 // Crear un Nuevo Grupo
@@ -140,6 +140,9 @@ export const nuevoGrupo = async (req: Request, res: Response): Promise<void> => 
         return;
       } 
 
+      if (await verificarAlumnoEnGrupo(alumnoData)) {
+        return res.status(400).json({ message: "El alumno ya está en este grupo." });
+      }
       const AlumnoAsignado = await asignarAlumno(alumnoData);
   
     //Enviar respuesta exitosa (201) con los datos del grupo creado

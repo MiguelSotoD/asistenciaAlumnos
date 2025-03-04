@@ -70,7 +70,19 @@ const crearGrupo = async (grupoData: Grupo): Promise<void> => {
     }
   }
 
-
+ const verificarAlumnoEnGrupo= async(alumnoData: { grupo_id: number; alumno_id: number }): Promise<boolean> => {
+  const {grupo_id, alumno_id} = alumnoData;
+  try {
+    const result = await conexionDB.query(
+      `SELECT * FROM grupo_alumnos WHERE grupo_id = $1 AND alumno_id = $2`,
+      [grupo_id, alumno_id]
+    );
+    return result.rows.length > 0;
+  } catch (error) {
+    logger.error(`Error al verificar Alumnos en Grupos: ${error}`);
+    throw new Error("Error al verificar Alumnos en Grupos.");
+  }
+}
  const obtenerAlumnosConAsistencias = async (idNumber: number): Promise<any[]> => {
   try {
   const result = await conexionDB.query( `
@@ -118,4 +130,4 @@ const asignarAlumno = async (alumnoData: { grupo_id: number; alumno_id: number }
       throw new Error("Error al crear el Registrar Alumno en Grupo.");
     }
   };
-  export { crearGrupo, obtenerGrupos, actualizarGrupo, verGrupoById, obtenerAlumnosConAsistencias, asignarAlumno };
+  export { crearGrupo, obtenerGrupos, actualizarGrupo, verGrupoById, obtenerAlumnosConAsistencias, asignarAlumno, verificarAlumnoEnGrupo };
