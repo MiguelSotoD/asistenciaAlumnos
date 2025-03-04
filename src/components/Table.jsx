@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getGroupId } from '../api/GroupId';
+import { postAttendance } from '../api/Attendance';
 
 const TableStudents = ({ mes, searchTerm, id_grupo }) => {
     const [diasDelMes, setDiasDelMes] = useState([]);
@@ -11,28 +12,33 @@ const TableStudents = ({ mes, searchTerm, id_grupo }) => {
         const fetchAlumnos = async () => {
             const data = await getGroupId(id_grupo);
             setAlumnos(Array.isArray(data) ? data : []);
+            const initialAsistencia = data.reduce((acc, alumno) => {
+                acc[alumno.id_alumno] = Array(31).fill('');
+                alumno.sesiones.forEach(sesion => {
+                    const fecha = new Date(sesion.fecha);
+                    if (fecha.getMonth() === mes) {
+                        const dia = fecha.getDate() - 1;
+                        acc[alumno.id_alumno][dia] = sesion.asistio ? '/' : '*';
+                    }
+                });
+                return acc;
+            }, {});
+            setAsistencia(initialAsistencia);
         };
         fetchAlumnos();
-    }, [id_grupo]);
+    }, [id_grupo, mes]);
 
     useEffect(() => {
         const diasEnMes = new Date(2023, mes + 1, 0).getDate();
         setDiasDelMes(Array.from({ length: diasEnMes }, (_, i) => i + 1));
     }, [mes]);
 
-    useEffect(() => {
-        const initialAsistencia = alumnos.reduce((acc, alumno) => {
-            acc[alumno.id_alumno] = Array(31).fill('');
-            return acc;
-        }, {});
-        setAsistencia(initialAsistencia);
-    }, [alumnos]);
-
-    const toggleAsistencia = (id, dia, value) => {
-        setAsistencia({
-            ...asistencia,
-            [id]: asistencia[id].map((asistio, index) => (index === dia ? value : asistio))
-        });
+    const handleInputChange = (e, id, dia) => {
+        const value = e.target.value;
+        setAsistencia(prevAsistencia => ({
+            ...prevAsistencia,
+            [id]: prevAsistencia[id].map((asistio, index) => (index === dia ? value : asistio))
+        }));
     };
 
     const handleKeyDown = (e, id, dia) => {
@@ -65,8 +71,26 @@ const TableStudents = ({ mes, searchTerm, id_grupo }) => {
         }
     };
 
+    const handleSave = async () => {
+        const asistencias = alumnos.flatMap(alumno =>
+            alumno.sesiones.map(sesion => ({
+                alumno_id: alumno.id_alumno,
+                sesion_id: sesion.id_sesion,
+                asistencia: asistencia[alumno.id_alumno][new Date(sesion.fecha).getDate() - 1] === '/'
+            }))
+        );
+
+        try {
+            await postAttendance(id_grupo, asistencias);
+            alert('Asistencia guardada exitosamente');
+        } catch (error) {
+            console.error('Error al guardar la asistencia:', error);
+            alert('Hubo un error al guardar la asistencia');
+        }
+    };
+
     const filteredAlumnos = alumnos.filter(alumno =>
-        `${alumno.nombre} ${alumno.apellido_paterno} ${alumno.apellido_materno}`.toLowerCase().includes(searchTerm.toLowerCase())
+        `${alumno.nombre}`.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     return (
@@ -87,14 +111,14 @@ const TableStudents = ({ mes, searchTerm, id_grupo }) => {
                     {filteredAlumnos.map((alumno, index) => (
                         <tr key={alumno.id_alumno} className="hover:bg-gray-100">
                             <td className="border border-gray-400 p-2 text-center">{index + 1}</td>
-                            <td className="border border-gray-400 p-2">{`${alumno.nombre} ${alumno.apellido_paterno} ${alumno.apellido_materno}`}</td>
+                            <td className="border border-gray-400 p-2">{`${alumno.nombre}`}</td>
                             {diasDelMes.map((dia, i) => (
                                 <td key={i} className="border border-gray-400 p-2 text-center">
                                     <input
                                         type="text"
                                         id={`input-${alumno.id_alumno}-${i}`}
                                         value={asistencia[alumno.id_alumno]?.[i] || ''}
-                                        onChange={(e) => toggleAsistencia(alumno.id_alumno, i, e.target.value)}
+                                        onChange={(e) => handleInputChange(e, alumno.id_alumno, i)}
                                         onKeyDown={(e) => handleKeyDown(e, alumno.id_alumno, i)}
                                         className="w-5 h-5 rounded-sm text-center border border-gray-400"
                                         maxLength="1"
@@ -106,7 +130,10 @@ const TableStudents = ({ mes, searchTerm, id_grupo }) => {
                 </tbody>
             </table>
             <div className="flex justify-end mt-4">
-                <button className="bg-white border-1 border-button-primary text-black px-3.5 py-1.5 rounded-full cursor-pointer hover:bg-button-secondary hover:text-white">
+                <button
+                    onClick={handleSave}
+                    className="bg-white border-1 border-button-primary text-black px-3.5 py-1.5 rounded-full cursor-pointer hover:bg-button-secondary hover:text-white"
+                >
                     Guardar
                 </button>
             </div>
