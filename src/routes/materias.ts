@@ -3,6 +3,7 @@ import { Router } from 'express';
 import { celebrate, Joi, Segments } from 'celebrate';
 import { validationMateria } from '../validations/materiaValidator';
 import { nuevaMateria, todasMaterias, editarMateria } from '../controller/materiaController';
+import { verificarToken } from '../middleware/authMiddleware';
 const router = Router();
 
 
@@ -51,7 +52,7 @@ const router = Router();
  *       200:
  *         description: Lista de materias obtenida correctamente
  */
-router.get("/", todasMaterias);
+router.get("/", todasMaterias, verificarToken);
 
 
 /**

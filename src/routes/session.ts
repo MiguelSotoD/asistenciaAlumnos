@@ -3,6 +3,7 @@ import { celebrate, Joi, Segments } from "celebrate";
 import { Router } from "express";
 import { validationSession } from "../validations/sessionValidator";
 import { ingresarProfesor, logoutProfesorController, nuevoProfesor } from "../controller/sessionController";
+import { verificarToken } from "../middleware/authMiddleware";
 
 const router = Router();
 
@@ -133,6 +134,10 @@ router.post(
  *         description: Error interno del servidor
  */
 router.post("/logout", logoutProfesorController);
+
+router.get("/perfil", verificarToken, (req, res) => {
+  res.status(200).json({ message: "Acceso concedido", usuario: (req as any).user });
+});
 
 module.exports = router;
 
