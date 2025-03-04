@@ -1,7 +1,11 @@
 import { Request, Response } from "express";
 import logger from "../utils/logger";
 import jwt from "jsonwebtoken";
-import { crearProfesor, loginProfesor } from "../services/sessionService";
+import {
+  crearProfesor,
+  loginProfesor,
+  recuperarContrasena,
+} from "../services/sessionService";
 
 const JWT_SECRET = process.env.JWT_SECRET || "clave_secreta";
 const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || "1h";
@@ -78,5 +82,37 @@ export const logoutProfesorController = (req: Request, res: Response): void => {
     res.status(200).json({ message: "Sesión cerrada correctamente." });
   } catch (error) {
     res.status(500).json({ error: "Error al cerrar sesión." });
+  }
+};
+
+export const recuperarContrasenaController = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const { email } = req.body;
+
+    if (!email) {
+      res
+        .status(400)
+        .json({ message: "El email es requerido." });
+      return;
+    }
+
+    const user = await recuperarContrasena(email);
+
+    if (!user) {
+      res.status(404).json({ message: "Usuario no encontrado." });
+      return;
+    }
+
+    res
+      .status(200)
+      .json({
+        message: "Solicitud de recuperación procesada correctamente. Revisa tu correo.",
+      });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error en el servidor." });
   }
 };

@@ -2,7 +2,7 @@
 import { celebrate, Joi, Segments } from "celebrate";
 import { Router } from "express";
 import { validationSession } from "../validations/sessionValidator";
-import { ingresarProfesor, logoutProfesorController, nuevoProfesor } from "../controller/sessionController";
+import { ingresarProfesor, logoutProfesorController, nuevoProfesor, recuperarContrasenaController } from "../controller/sessionController";
 import { verificarToken } from "../middleware/authMiddleware";
 
 const router = Router();
@@ -138,6 +138,8 @@ router.post("/logout", logoutProfesorController);
 router.get("/perfil", verificarToken, (req, res) => {
   res.status(200).json({ message: "Acceso concedido", usuario: (req as any).user });
 });
+
+router.post("/recuperarContrasena", recuperarContrasenaController);
 
 module.exports = router;
 

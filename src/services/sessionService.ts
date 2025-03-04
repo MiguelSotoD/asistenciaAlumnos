@@ -1,6 +1,8 @@
 import { conexionDB } from "../config/configBD";
 import { Profesor } from "../models/interface/sessionInterface";
 import logger from "../utils/logger";
+import jwt from "jsonwebtoken";
+import { enviarEmailRecuperacion } from "./emailService";
 
 const crearProfesor = async (profesorData: Profesor): Promise<void> => {
   const { nombre, apellido_paterno, apellido_materno, email, password } =
@@ -49,4 +51,34 @@ const loginProfesor = async (
   }
 };
 
-export { crearProfesor, loginProfesor };
+const recuperarContrasena = async (email: string) => {
+  try {
+    const result = await conexionDB.query(
+      `SELECT * FROM profesores WHERE Email = $1`,
+      [email]
+    );
+
+    if (result.rows.length > 0) {
+      const user = result.rows[0];
+
+      // Generar un token de recuperación con expiración de 1 hora
+      const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET as string, {
+        expiresIn: "1h",
+      });
+
+      // Crear el enlace para restablecer la contraseña
+      const link = `${process.env.FRONTEND_URL}/restablecer-contrasena/${token}`;
+
+      // Enviar el correo electrónico con el enlace
+      await enviarEmailRecuperacion(email, link);
+
+      return user;
+    } else {
+      return null;
+    }
+  } catch (error: any) {
+    logger.error(`No se encontró el email: ${error.message}`);
+    throw new Error("Error al consultar el correo electrónico.");
+  }
+};
+export { crearProfesor, loginProfesor, recuperarContrasena };
