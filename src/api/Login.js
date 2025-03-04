@@ -2,13 +2,13 @@ import API from "../Api";
 
 export const login = async (data) => {
     try {
-        const response = await API.post("/api/login", {
+        const response = await API.post("/api/auth/login", {
             email: data.email,
             password: data.password
         });
-        return response.data;
+        // Asegúrate de que la respuesta contenga la propiedad success
+        return { success: true, ...response.data };
     } catch (error) {
-        console.error('Error logging in:', error);
-        return error.response ? error.response.data : { success: false, message: 'Error desconocido' };
+        return error.response.data;
     }
 }

@@ -18,9 +18,9 @@ function MegaMenu() {
                 <li>
                     <a onClick={()=> navigate('/Inicio-alumnos')} className="block py-2 px-3 text-gray-900 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-yellow md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700 cursor-pointer" aria-current="page">Inicio</a>
                 </li>
-                <li>
+                {/* <li>
                     <a onClick={()=> navigate('/Lista-alumnos')} className="block py-2 px-3 text-gray-900 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-yellow md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700 cursor-pointer">Listas</a>
-                </li>
+                </li> */}
                 
                 <li>
                     <a onClick={()=> navigate('/')} className="text-white bg-button-primary hover:bg-button-secondary font-medium rounded-lg text-md px-3 py-1 md:px-3 md:py-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 cursor-pointer">Sign up</a>

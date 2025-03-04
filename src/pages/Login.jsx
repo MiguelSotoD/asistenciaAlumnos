@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ReCAPTCHA from 'react-google-recaptcha';
+import { login } from '../api/Login';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -8,11 +9,19 @@ const Login = () => {
     const [captchaValue, setCaptchaValue] = useState(null);
     const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (captchaValue) {
-            // Aquí puedes agregar la lógica de autenticación
-            navigate('/Inicio-alumnos');
+            try {
+                const response = await login({ email, password });
+                if (response.success) {
+                    navigate('/Inicio-alumnos');
+                } else {
+                    alert(response.message);
+                }
+            } catch (error) {
+                alert('Error al iniciar sesión. Por favor, inténtalo de nuevo.');
+            }
         } else {
             alert('Por favor, verifica que eres un humano.');
         }
