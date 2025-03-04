@@ -1,25 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import MegaMenu from "../components/MegaMenu";
 import Pagination from "../components/Pagination";
 import Table from "../components/Table";
 import SearchInput from "../components/SearchInput";
-import { getAlumns } from '../api/Alumns';
 
 const ListaAlumnos = () => {
     const { id_grupo } = useParams();
     const [mes, setMes] = useState(0);
     const [searchTerm, setSearchTerm] = useState('');
-    const [alumnos, setAlumnos] = useState([]);
-
-    useEffect(() => {
-        const fetchAlumnos = async () => {
-            const data = await getAlumns();
-            const filteredAlumnos = data.filter(alumno => alumno.id_grupo === parseInt(id_grupo));
-            setAlumnos(filteredAlumnos);
-        };
-        fetchAlumnos();
-    }, [id_grupo]);
 
     const handleMesAnterior = () => {
         setMes((prevMes) => (prevMes === 0 ? 11 : prevMes - 1));
@@ -41,7 +30,7 @@ const ListaAlumnos = () => {
                 <SearchInput onSearch={handleSearch} />
             </div>
         </div>
-        <Table mes={mes} searchTerm={searchTerm} alumnos={alumnos} />
+        <Table mes={mes} searchTerm={searchTerm} id_grupo={id_grupo} />
         <Pagination onMesAnterior={handleMesAnterior} onMesSiguiente={handleMesSiguiente} />
         </>
     );

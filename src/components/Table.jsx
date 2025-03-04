@@ -1,15 +1,24 @@
 import { useState, useEffect } from 'react';
+import { getGroupId } from '../api/GroupId';
 
-const TableStudents = ({ mes, searchTerm, alumnos }) => {
+const TableStudents = ({ mes, searchTerm, id_grupo }) => {
     const [diasDelMes, setDiasDelMes] = useState([]);
+    const [alumnos, setAlumnos] = useState([]);
+    const [asistencia, setAsistencia] = useState({});
     const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+
+    useEffect(() => {
+        const fetchAlumnos = async () => {
+            const data = await getGroupId(id_grupo);
+            setAlumnos(Array.isArray(data) ? data : []);
+        };
+        fetchAlumnos();
+    }, [id_grupo]);
 
     useEffect(() => {
         const diasEnMes = new Date(2023, mes + 1, 0).getDate();
         setDiasDelMes(Array.from({ length: diasEnMes }, (_, i) => i + 1));
     }, [mes]);
-
-    const [asistencia, setAsistencia] = useState({});
 
     useEffect(() => {
         const initialAsistencia = alumnos.reduce((acc, alumno) => {
@@ -63,7 +72,7 @@ const TableStudents = ({ mes, searchTerm, alumnos }) => {
     return (
         <div className="px-4 overflow-x-auto">
             <h1 className="text-3xl font-bold mb-4">{meses[mes]}</h1>
-            <h2 className="text-2xl font-bold mb-4">Lista de Asistencia</h2>
+            <h2 className="text-2xl font-bold mb-4">Lista de Asistencia - Grupo {id_grupo}</h2>
             <table className="border-collapse border border-gray-400 w-full text-sm">
                 <thead>
                     <tr className="bg-gray-300">
